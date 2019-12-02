@@ -113,15 +113,15 @@ if($OnlineApplicationInstanceLineURI -ne $null)
 if($OutputType -eq "CSV")
 {
     $Array1 | export-csv $FilePath -NoTypeInformation
-    Write-Host "ALL DONE!! Your file has been saved to $FilePath. Press any key to quit"
+    Write-Host "ALL DONE!! Your file has been saved to $FilePath."
 }
 elseif($OutputType -eq "CONSOLE")
 {
     $Array1 | FT -AutoSize -Property LineURI,DDI,Ext,DisplayName,Type
-    Write-Host "ALL DONE!! Press any key to quit"
+    Write-Host "ALL DONE!!"
 }
 else
 {
     $Array1 | FT -AutoSize -Property LineURI,DDI,Ext,DisplayName,Type
-    Write-Host "WARNING: Valid output type not set, defaulted to console. Press any key to quit"
+    Write-Host "WARNING: Valid output type not set, defaulted to console."
 }
