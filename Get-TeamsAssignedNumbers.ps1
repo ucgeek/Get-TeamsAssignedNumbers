@@ -28,16 +28,12 @@
 
 .NOTES
     v1.0 - Initial release       
+    v1.1 - Now using Microsoft Teams PowerSHell module
 #>
 #endregion INFO
 
-#Connect to Skyper for Business Online
-if (!$sfboSession.State -eq 'Opened')
-{
-    Import-Module SkypeOnlineConnector
-    $sfboSession = New-CsOnlineSession
-    Import-PSSession $sfboSession -AllowClobber
-}
+
+Connect-MicrosoftTeams
 
 #Settings ##############################
 #. "_Settings.ps1" | Out-Null
