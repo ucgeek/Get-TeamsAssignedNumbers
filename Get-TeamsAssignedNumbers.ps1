@@ -33,7 +33,7 @@
 #endregion INFO
 
 <# 
-If you dont already have the Microsfot Teams module installed, complete the following first:
+If you dont already have the Microsoft Teams PowerShell module installed, complete the following first:
 Install-Module -Name MicrosoftTeams -Force -AllowClobber
 
 More info - https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-install
