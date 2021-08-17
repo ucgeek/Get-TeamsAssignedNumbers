@@ -28,10 +28,16 @@
 
 .NOTES
     v1.0 - Initial release       
-    v1.1 - Now using Microsoft Teams PowerSHell module
+    v1.1 - Now using Microsoft Teams PowerShell module
 #>
 #endregion INFO
 
+<# 
+If you dont already have the Microsfot Teams module installed, complete the following first:
+Install-Module -Name MicrosoftTeams -Force -AllowClobber
+
+More info - https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-install
+#>
 
 Connect-MicrosoftTeams
 
