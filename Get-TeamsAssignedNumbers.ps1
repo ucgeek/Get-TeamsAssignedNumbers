@@ -22,22 +22,23 @@
     as part of their service offering/best practices provided they only charge for their time to implement and support.
 
 .RUN INSTRUCTIONS 
-    If you haven’t already, you will need to install the Skype for Business Online PowerShell module which can be downloaded here - https://www.microsoft.com/en-us/download/details.aspx?id=39366
+    If you haven’t already, you will need to install the Microsoft Teams PowerShell module - https://www.powershellgallery.com/packages/MicrosoftTeams
     Update settings "Settings" at the top of the script
     Run: .\Get-TeamsAssignedNumbers.ps1
+
+    If you dont already have the Microsoft Teams PowerShell module installed, complete the following first:
+    Install-Module -Name MicrosoftTeams -Force -AllowClobber
+
+    Update existing Module using:
+    Update-Module MicrosoftTeams
 
 .NOTES
     v1.0 - Initial release       
     v1.1 - Now using Microsoft Teams PowerShell module
+    v1.2 - Updated now unsupported aspects of the script
 #>
 #endregion INFO
 
-<# 
-If you dont already have the Microsoft Teams PowerShell module installed, complete the following first:
-Install-Module -Name MicrosoftTeams -Force -AllowClobber
-
-More info - https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-install
-#>
 
 Connect-MicrosoftTeams
 
@@ -46,7 +47,6 @@ Connect-MicrosoftTeams
 $FileName = "TeamsAssignedNumbers_" + (Get-Date -Format s).replace(":","-") +".csv"
 $FilePath = "D:\Temp\$FileName"
 $OutputType = "CSV" #OPTIONS: CSV - Outputs CSV to specified FilePath, CONSOLE - Outputs to console
-
 ##############################
 
 $Regex1 = '^(?:tel:)?(?:\+)?(\d+)(?:;ext=(\d+))?(?:;([\w-]+))?$'
@@ -55,6 +55,7 @@ $Array1 = @()
 $UsersLineURI = Get-CsOnlineUser -Filter {LineURI -ne $Null}
 if($UsersLineURI -ne $null)
 {
+    Write-Host "Processing User Numbers"
     foreach($item in $UsersLineURI)
     {                  
         $Matches = @()
@@ -73,10 +74,12 @@ if($UsersLineURI -ne $null)
 }
 
 #Get meeting room numbers
+Write-Host "Updated to MS Teams module. Get-CsMeetingRoom is no longer supported. We are looking for other reliable ways to achieve this. Assigned numbers may therefore be incomplete." -ForegroundColor Red
+<#
 $MeetingRoomLineURI = Get-CsMeetingRoom -Filter {LineURI -ne $Null}
 if($MeetingRoomLineURI -ne $null)
 {
-	Write-Verbose "Processing Meeting Room Numbers"
+	Write-Host "Processing Meeting Room Numbers"
     foreach($Item in $MeetingRoomLineURI)
     {                 
         $Matches = @()
@@ -91,12 +94,13 @@ if($MeetingRoomLineURI -ne $null)
         $Array1 += $myObject1         
     }
 }
+#>
 
 #Get online resource accounts
 $OnlineApplicationInstanceLineURI = Get-CsOnlineApplicationInstance | where {$_.PhoneNumber -ne $Null}
 if($OnlineApplicationInstanceLineURI -ne $null)
 {
-	Write-Verbose "Processing Online Application Instances (Resource Accounts) Numbers"
+	Write-Host "Processing Online Application Instances (Resource Accounts) Numbers"
     foreach($Item in $OnlineApplicationInstanceLineURI)
     {                 
         $Matches = @()
